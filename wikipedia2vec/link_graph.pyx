@@ -118,9 +118,9 @@ cdef class LinkGraph:
         rows = list(chain(*rows))
         cols = list(chain(*cols))
 
-        matrix = coo_matrix((np.ones(len(rows), dtype=np.bool),
+        matrix = coo_matrix((np.ones(len(rows), dtype=bool),
                              (np.array(rows, dtype=np.int32),
-                              np.array(cols, dtype=np.int32))), dtype=np.bool)
+                              np.array(cols, dtype=np.int32))), dtype=bool)
         del rows, cols
 
         matrix = matrix.tocsr()
