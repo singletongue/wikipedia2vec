@@ -24,6 +24,25 @@ Wikipedia2Vec can be installed via PyPI:
 % pip install wikipedia2vec
 ```
 
+For Python 3.9+, run the following commands:
+
+```bash
+% pip install git+https://github.com/singletongue/wikipedia2vec.git
+
+# Or, in the root directory of the cloned repository:
+% pip install -e .
+```
+
+To use the MeCab tokenizer:
+
+```sh
+# To use the MeCab tokenizer:
+% pip install 'mecab-python3==0.7'
+
+# To use the ICU tokenizer / sentence splitter:
+% pip install PyICU
+```
+
 With this tool, embeddings can be learned by running a *train* command with a Wikipedia dump as input.
 For example, the following commands download the latest English Wikipedia dump and learn embeddings from this dump:
 

@@ -155,7 +155,7 @@ cdef class Wikipedia2Vec:
                 f.write(('%d %d\n' % (len(self.dictionary), len(self.syn0[0]))).encode('utf-8'))
 
             for item in sorted(self.dictionary, key=lambda o: o.doc_count, reverse=True):
-                vec_str = ' '.join('%.4f' % v for v in self.get_vector(item))
+                vec_str = ' '.join('%.4f' % v for v in self.get_vector(item).tolist())
                 if isinstance(item, Word):
                     text = item.text.replace('\t', ' ')
                 else:
@@ -361,11 +361,6 @@ cdef class Wikipedia2Vec:
 
             logger.info('Terminating pool workers...')
 
-        self.syn0 = self.syn0.copy()
-        syn0_mmap.close()
-        self.syn1 = self.syn1.copy()
-        syn1_mmap.close()
-
         train_params = dict(
             dump_db=dump_db.uuid,
             dump_file=dump_db.dump_file,
@@ -412,7 +407,7 @@ cdef class Wikipedia2Vec:
 
         items = list(items)
         neg_table = multiprocessing.RawArray(c_int32, table_size)
-        items_pow = float(sum([item.count ** power for item in items]))
+        items_pow = sum([float(item.count) ** power for item in items])
 
         index = 0
         cur = items[index].count ** power / items_pow
